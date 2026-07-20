@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | FoodNest</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/checkout.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        <i class="fa-solid fa-burger"></i>
+        <h2>FoodNest</h2>
+    </div>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+        <a href="restaurant.html">Restaurant</a>
+        <a href="menu.html">Menu</a>
+        <a href="cart.html">Cart</a>
+        <a href="checkout.html" class="active">Checkout</a>
+
+    </nav>
+
+    <button class="login-btn">Login</button>
+
+</header>
+
+<section class="checkout-banner">
+
+    <h1>Checkout</h1>
+
+    <p>Complete your order details.</p>
+
+</section>
+
+<section class="checkout-container">
+
+    <!-- Customer Form -->
+
+    <div class="checkout-form">
+
+        <h2>Delivery Details</h2>
+
+        <form>
+
+            <input type="text"
+                placeholder="Full Name"
+                required>
+
+            <input type="email"
+                placeholder="Email Address"
+                required>
+
+            <input type="tel"
+                placeholder="Phone Number"
+                required>
+
+            <textarea
+                placeholder="Delivery Address"
+                rows="5"
+                required></textarea>
+
+            <select>
+
+                <option>Cash On Delivery</option>
+
+                <option>UPI</option>
+
+                <option>Credit Card</option>
+
+                <option>Debit Card</option>
+
+            </select>
+
+        </form>
+
+    </div>
+
+    <!-- Order Summary -->
+
+    <div class="checkout-summary">
+
+        <h2>Order Summary</h2>
+
+        <p>Items <span>₹498</span></p>
+
+        <p>Delivery <span>₹40</span></p>
+
+        <p>GST <span>₹20</span></p>
+
+        <hr>
+
+        <h3>Total <span>₹558</span></h3>
+
+        <button class="place-order">
+
+            Place Order
+
+        </button>
+
+    </div>
+
+</section>
+
+<footer>
+
+<h2>FoodNest</h2>
+
+<p>Fresh Food • Fast Delivery</p>
+
+<p>© 2026 FoodNest</p>
+
+</footer>
+
+<script src="js/checkout.js"></script>
+
+</body>
+
+</html>

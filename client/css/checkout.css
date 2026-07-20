@@ -1,0 +1,218 @@
+/* ==========================
+   CHECKOUT BANNER
+========================== */
+
+.checkout-banner{
+    background:#ff6b35;
+    color:white;
+    text-align:center;
+    padding:70px 20px;
+}
+
+.checkout-banner h1{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.checkout-banner p{
+    font-size:18px;
+}
+
+/* ==========================
+   CONTAINER
+========================== */
+
+.checkout-container{
+    display:flex;
+    justify-content:space-between;
+    gap:40px;
+    padding:70px 8%;
+    align-items:flex-start;
+}
+
+/* ==========================
+   FORM
+========================== */
+
+.checkout-form{
+    flex:2;
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+}
+
+.checkout-form h2{
+    margin-bottom:25px;
+}
+
+.checkout-form form{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.checkout-form input,
+.checkout-form textarea,
+.checkout-form select{
+
+    width:100%;
+    padding:15px;
+
+    border:1px solid #ddd;
+    border-radius:10px;
+
+    font-size:16px;
+    outline:none;
+
+    transition:.3s;
+
+}
+
+.checkout-form input:focus,
+.checkout-form textarea:focus,
+.checkout-form select:focus{
+
+    border-color:#ff6b35;
+
+}
+
+/* ==========================
+   SUMMARY
+========================== */
+
+.checkout-summary{
+
+    flex:1;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+
+    position:sticky;
+
+    top:100px;
+
+}
+
+.checkout-summary h2{
+
+    margin-bottom:25px;
+
+}
+
+.checkout-summary p{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin:15px 0;
+
+    color:#555;
+
+    font-size:18px;
+
+}
+
+.checkout-summary h3{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:25px;
+
+    color:#ff6b35;
+
+    font-size:28px;
+
+}
+
+.place-order{
+
+    width:100%;
+
+    margin-top:30px;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#ff6b35;
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.place-order:hover{
+
+    background:#e65a28;
+
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media(max-width:992px){
+
+.checkout-container{
+
+    flex-direction:column;
+
+}
+
+.checkout-summary{
+
+    width:100%;
+
+    position:static;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.checkout-banner h1{
+
+    font-size:30px;
+
+}
+
+.checkout-form{
+
+    padding:25px;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.checkout-banner h1{
+
+    font-size:24px;
+
+}
+
+.checkout-summary h3{
+
+    font-size:22px;
+
+}
+
+}

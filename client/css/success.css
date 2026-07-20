@@ -1,0 +1,141 @@
+.success-container{
+
+    min-height:80vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:50px 20px;
+
+}
+
+.success-icon{
+
+    font-size:100px;
+
+    color:#28a745;
+
+    margin-bottom:25px;
+
+}
+
+.success-container h1{
+
+    font-size:42px;
+
+    color:#222;
+
+    margin-bottom:15px;
+
+}
+
+.success-container p{
+
+    color:#666;
+
+    font-size:18px;
+
+}
+
+.order-details{
+
+    background:white;
+
+    margin:40px 0;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+
+    width:350px;
+
+}
+
+.order-details p{
+
+    margin:15px 0;
+
+}
+
+.success-buttons{
+
+    display:flex;
+
+    gap:20px;
+
+}
+
+.success-buttons button{
+
+    padding:15px 30px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:#ff6b35;
+
+    color:white;
+
+    font-size:16px;
+
+    transition:.3s;
+
+}
+
+.success-buttons button:hover{
+
+    background:#e65a28;
+
+}
+
+.secondary-btn{
+
+    background:#333 !important;
+
+}
+
+.secondary-btn:hover{
+
+    background:#111 !important;
+
+}
+
+@media(max-width:768px){
+
+.success-container h1{
+
+    font-size:30px;
+
+}
+
+.order-details{
+
+    width:100%;
+
+}
+
+.success-buttons{
+
+    flex-direction:column;
+
+}
+
+.success-buttons button{
+
+    width:250px;
+
+}
+
+}
