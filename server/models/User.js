@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
 
     email: {
@@ -13,23 +13,40 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
       lowercase: true,
-      trim: true
+      trim: true,
     },
 
     phone: {
       type: String,
-      required: true
+      required: true,
     },
 
     password: {
       type: String,
       required: true,
-      minlength: 6
-    }
+      minlength: 6,
+    },
+
+    role: {
+      type: String,
+      enum: ["customer", "admin"],
+      default: "customer",
+    },
+
+    resetPasswordToken: {
+    type: String,
+},
+
+resetPasswordExpire: {
+    type: Date,
+},
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
+
+
+  
 );
 
 const User = mongoose.model("User", userSchema);
