@@ -1,4 +1,3 @@
-
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -13,12 +12,12 @@ import menuRoutes from "./routes/menuRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
-
-import errorMiddleware from "./middleware/errorMiddleware.js";
-import socketAuthMiddleware from "./middleware/socketAuthMiddleware.js";
 import couponRoutes from "./routes/couponRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import aiRoutes from "./routes/aiRoutes.js";
+
+import errorMiddleware from "./middleware/errorMiddleware.js";
+import socketAuthMiddleware from "./middleware/socketAuthMiddleware.js";
 
 dotenv.config();
 
@@ -29,6 +28,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
   "https://foodnest-wheat.vercel.app",
+  "https://food-nest-three.vercel.app",
 ];
 
 const corsOptions = {
@@ -43,12 +43,10 @@ const corsOptions = {
   credentials: true,
 };
 
-// Initialize Socket.IO
 const io = new Server(httpServer, {
   cors: corsOptions,
 });
 
-// Make Socket.IO available to controllers
 app.set("io", io);
 
 // Middleware
@@ -71,7 +69,7 @@ app.use("/api/coupons", couponRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/ai", aiRoutes);
 
-// Authenticate Socket.IO connections using JWT
+// Socket.IO authentication
 io.use(socketAuthMiddleware);
 
 io.on("connection", (socket) => {
