@@ -1,7 +1,8 @@
+
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
+import API from "../services/api";
 
 function ResetPassword() {
   const { token } = useParams();
@@ -11,42 +12,39 @@ function ResetPassword() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  if (password !== confirmPassword) {
-    toast.warning("Passwords do not match");
-    return;
-  }
+    if (password !== confirmPassword) {
+      toast.warning("Passwords do not match");
+      return;
+    }
 
-  try {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    const res = await axios.put(
-      `http://localhost:5000/api/auth/reset-password/${token}`,
-      {
-        password,
-      }
-    );
+      const res = await API.put(
+        `/auth/reset-password/${token}`,
+        { password }
+      );
 
-    toast.success(res.data.message);
+      toast.success(res.data.message || "Password reset successfully");
 
-    setTimeout(() => {
-      navigate("/login");
-    }, 800);
-  } catch (error) {
-    toast.error(
-      error.response?.data?.message || "Something went wrong"
-    );
-  } finally {
-    setLoading(false);
-  }
-};
+      setTimeout(() => {
+        navigate("/login");
+      }, 800);
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Something went wrong"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-orange-50">
       <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-8">
-
         <h1 className="text-3xl font-bold text-center text-orange-500">
           Reset Password
         </h1>
@@ -56,7 +54,6 @@ function ResetPassword() {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-
           <input
             type="password"
             placeholder="New Password"
@@ -82,7 +79,6 @@ function ResetPassword() {
           >
             {loading ? "Updating..." : "Reset Password"}
           </button>
-
         </form>
       </div>
     </div>
