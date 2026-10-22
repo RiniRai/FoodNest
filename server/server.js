@@ -1,3 +1,4 @@
+
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -21,19 +22,23 @@ import aiRoutes from "./routes/aiRoutes.js";
 
 dotenv.config();
 
-connectDB();
-
 const app = express();
 const httpServer = createServer(app);
 
-// Allowed frontend origins — use plain URLs
-const CLIENT_URL = [
+const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
+  "https://foodnest-wheat.vercel.app",
 ];
 
 const corsOptions = {
-  origin: CLIENT_URL,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`Origin not allowed by CORS: ${origin}`));
+  },
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   credentials: true,
 };
@@ -50,7 +55,12 @@ app.set("io", io);
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Existing API routes
+// API health check
+app.get("/", (req, res) => {
+  res.send("FoodNest API Running");
+});
+
+// API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/restaurants", restaurantRoutes);
 app.use("/api/menu", menuRoutes);
@@ -61,15 +71,9 @@ app.use("/api/coupons", couponRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/ai", aiRoutes);
 
-// API health check
-app.get("/", (req, res) => {
-  res.send("FoodNest API Running");
-});
-
 // Authenticate Socket.IO connections using JWT
 io.use(socketAuthMiddleware);
 
-// Handle authenticated connections
 io.on("connection", (socket) => {
   console.log("Authenticated socket connected:", socket.id);
 
@@ -92,10 +96,17 @@ io.on("connection", (socket) => {
 // Error middleware must remain last
 app.use(errorMiddleware);
 
-// Start server
+// Connect to MongoDB and start the server
 const PORT = process.env.PORT || 5000;
 
-httpServer.listen(PORT, () => {
-  console.log(`FoodNest server running on port ${PORT}`);
-  console.log("Socket.IO is ready");
-});
+try {
+  await connectDB();
+
+  httpServer.listen(PORT, () => {
+    console.log(`FoodNest server running on port ${PORT}`);
+    console.log("Socket.IO is ready");
+  });
+} catch (error) {
+  console.error("Failed to connect to MongoDB:", error.message);
+  process.exit(1);
+}
