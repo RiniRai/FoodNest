@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema(
@@ -22,14 +23,39 @@ const orderSchema = new mongoose.Schema(
       },
     ],
 
+    // Original amount before applying coupon
+    subtotal: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+
+    // Applied coupon code, if any
+    couponCode: {
+      type: String,
+      default: null,
+      trim: true,
+      uppercase: true,
+    },
+
+    // Total discount applied
+    discountAmount: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+
+    // Final payable amount after discount
     totalAmount: {
       type: Number,
       required: true,
+      min: 0,
     },
 
     deliveryAddress: {
       type: String,
       required: true,
+      trim: true,
     },
 
     paymentMethod: {
@@ -42,6 +68,11 @@ const orderSchema = new mongoose.Schema(
       type: String,
       enum: ["Pending", "Preparing", "Out for Delivery", "Delivered"],
       default: "Pending",
+    },
+
+    estimatedDeliveryTime: {
+      type: Date,
+      default: null,
     },
   },
   { timestamps: true }

@@ -5,7 +5,8 @@ import {
     getAllMenuItems,
     getMenuByRestaurant,
     updateMenuItem,
-    deleteMenuItem
+    deleteMenuItem,
+    getActiveOffers
 } from "../controllers/menuController.js";
 
 import authMiddleware from "../middleware/authMiddleware.js";
@@ -28,5 +29,6 @@ router.post(
 );
 router.put("/:id", authMiddleware, adminMiddleware, updateMenuItem);
 router.delete("/:id", authMiddleware, adminMiddleware, deleteMenuItem);
+router.get("/offers", getActiveOffers);
 
 export default router;

@@ -1,3 +1,4 @@
+
 import {
   FaHamburger,
   FaPizzaSlice,
@@ -8,68 +9,93 @@ import { GiNoodles, GiChickenOven } from "react-icons/gi";
 
 function FoodCategories({ selectedCategory, setSelectedCategory }) {
   const categories = [
-    {
-      name: "All",
-      icon: "🍽️",
-    },
+    { name: "All", icon: "🍽️" },
     {
       name: "Burger",
-      icon: <FaHamburger className="text-5xl text-orange-500" />,
+      icon: <FaHamburger />,
+      color: "text-orange-500",
     },
     {
       name: "Pizza",
-      icon: <FaPizzaSlice className="text-5xl text-red-500" />,
+      icon: <FaPizzaSlice />,
+      color: "text-red-500",
     },
     {
       name: "Noodles",
-      icon: <GiNoodles className="text-5xl text-yellow-500" />,
+      icon: <GiNoodles />,
+      color: "text-yellow-500",
     },
     {
       name: "Biryani",
-      icon: <GiChickenOven className="text-5xl text-amber-600" />,
+      icon: <GiChickenOven />,
+      color: "text-amber-600",
     },
     {
       name: "Dessert",
-      icon: <FaIceCream className="text-5xl text-pink-500" />,
+      icon: <FaIceCream />,
+      color: "text-pink-500",
     },
     {
       name: "Drinks",
-      icon: <FaGlassWhiskey className="text-5xl text-blue-500" />,
+      icon: <FaGlassWhiskey />,
+      color: "text-blue-500",
     },
   ];
 
   return (
-    <section className="max-w-7xl mx-auto py-14 px-6">
-      <h2 className="text-4xl font-bold text-center mb-10">
-        Browse by Category
-      </h2>
+    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-14">
+      <div className="mb-8 text-center">
+        <p className="text-sm font-semibold uppercase tracking-widest text-orange-500">
+          Find your favorites
+        </p>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-6">
-        {categories.map((category) => (
-          <div
-            key={category.name}
-            onClick={() => setSelectedCategory(category.name)}
-            className={`rounded-2xl p-6 flex flex-col items-center cursor-pointer transition-all duration-300 ${
-              selectedCategory === category.name
-                ? "bg-orange-500 text-white shadow-xl scale-105"
-                : "bg-white shadow-md hover:shadow-xl hover:-translate-y-2"
-            }`}
-          >
-            <div
-              className={`${
-                selectedCategory === category.name
-                  ? "text-white"
-                  : ""
+        <h2 className="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
+          Browse by Category
+        </h2>
+
+        <p className="mt-3 text-sm text-gray-500 sm:text-base">
+          Explore delicious dishes for every craving.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 md:grid-cols-4 lg:grid-cols-7">
+        {categories.map((category) => {
+          const isSelected = selectedCategory === category.name;
+
+          return (
+            <button
+              key={category.name}
+              type="button"
+              aria-pressed={isSelected}
+              onClick={() => setSelectedCategory(category.name)}
+              className={`group flex min-h-32 flex-col items-center justify-center rounded-2xl border p-4 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 sm:min-h-36 ${
+                isSelected
+                  ? "border-orange-500 bg-orange-500 text-white shadow-lg shadow-orange-200"
+                  : "border-gray-100 bg-white text-gray-800 shadow-sm hover:-translate-y-1 hover:border-orange-200 hover:shadow-md"
               }`}
             >
-              {category.icon}
-            </div>
+              <span
+                className={`flex h-12 w-12 items-center justify-center text-4xl transition-transform duration-200 group-hover:scale-110 ${
+                  isSelected
+                    ? "text-white"
+                    : category.color || ""
+                }`}
+              >
+                {category.icon}
+              </span>
 
-            <p className="mt-4 text-lg font-semibold">
-              {category.name}
-            </p>
-          </div>
-        ))}
+              <span className="mt-3 text-sm font-semibold sm:text-base">
+                {category.name}
+              </span>
+
+              {isSelected && (
+                <span className="mt-1 text-xs text-white/90">
+                  Selected
+                </span>
+              )}
+            </button>
+          );
+        })}
       </div>
     </section>
   );

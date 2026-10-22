@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import API from "../services/api";
 import Sidebar from "../components/Sidebar";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Orders() {
   const [orders, setOrders] = useState([]);

@@ -130,50 +130,74 @@ export const loginUser = async (req, res) => {
 
     }
 };
+
+
 export const forgotPassword = async (req, res) => {
   try {
-    const { email } = req.body;
+    const email = req.body.email?.trim().toLowerCase();
+
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: "Email is required",
+      });
+    }
 
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({
-        message: "User not found",
+      return res.status(200).json({
+        success: true,
+        message:
+          "If an account exists for this email, a reset link will be sent.",
       });
     }
 
-    // Generate random token
+    // Generate a secure reset token
     const resetToken = crypto.randomBytes(32).toString("hex");
 
-    // Store encrypted token
+    // Store only its hash in MongoDB
     user.resetPasswordToken = crypto
       .createHash("sha256")
       .update(resetToken)
       .digest("hex");
 
-    // Token expires in 15 minutes
     user.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
 
     await user.save();
 
-    const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
+    const clientUrl = process.env.CLIENT_URL;
 
-console.log("Reset URL:", resetUrl);
+    if (!clientUrl) {
+      throw new Error("CLIENT_URL is missing in .env");
+    }
 
-res.status(200).json({
-  success: true,
-  message: "Reset link generated successfully",
-  resetLink: resetUrl,
-});
+    const resetUrl =
+      `${clientUrl.replace(/\/$/, "")}/reset-password/${resetToken}`;
+
+    // Send the actual email using your existing utility
+    await sendEmail({
+      email: user.email,
+      subject: "FoodNest Password Reset",
+      resetUrl,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message:
+        "If an account exists for this email, a reset link will be sent.",
+    });
   } catch (error) {
-    console.error(error);
+    console.error("Forgot Password Error:", error.message);
 
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
-      message: "Server Error",
+      message: "Unable to send reset link. Please try again.",
     });
   }
 };
+
+
 
 export const resetPassword = async (req, res) => {
   try {

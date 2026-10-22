@@ -1,58 +1,50 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 function Sidebar() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const logout = () => {
     localStorage.removeItem("adminToken");
     navigate("/");
   };
 
-  return (
-    <div className="w-64 min-h-screen bg-gray-900 text-white p-6">
+  const navLinks = [
+    { path: "/dashboard", label: "📊 Dashboard" },
+    { path: "/restaurants", label: "🍽 Restaurants" },
+    { path: "/menu", label: "🍔 Menu" },
+    { path: "/orders", label: "📦 Orders" },
+    { path: "/coupons", label: "🎟 Coupons" },
+  ];
 
-      <h1 className="text-3xl font-bold mb-8">
+  return (
+    <div className="min-h-screen w-64 shrink-0 bg-gray-900 p-6 text-white">
+      <h1 className="mb-8 text-3xl font-bold">
         FoodNest Admin
       </h1>
 
-      <div className="flex flex-col gap-4">
-
-        <Link
-          to="/dashboard"
-          className="hover:text-orange-400"
-        >
-          📊 Dashboard
-        </Link>
-
-        <Link
-          to="/restaurants"
-          className="hover:text-orange-400"
-        >
-          🍽 Restaurants
-        </Link>
-
-        <Link
-          to="/menu"
-          className="hover:text-orange-400"
-        >
-          🍔 Menu
-        </Link>
-
-        <Link
-          to="/orders"
-          className="hover:text-orange-400"
-        >
-          📦 Orders
-        </Link>
+      <nav className="flex flex-col gap-3">
+        {navLinks.map((link) => (
+          <Link
+            key={link.path}
+            to={link.path}
+            className={`rounded-lg px-3 py-3 transition ${
+              location.pathname === link.path
+                ? "bg-orange-500 font-semibold text-white"
+                : "text-gray-200 hover:bg-gray-800 hover:text-orange-400"
+            }`}
+          >
+            {link.label}
+          </Link>
+        ))}
 
         <button
           onClick={logout}
-          className="mt-10 bg-red-500 px-4 py-2 rounded hover:bg-red-600"
+          className="mt-8 rounded-lg bg-red-500 px-4 py-3 font-semibold transition hover:bg-red-600"
         >
           Logout
         </button>
-
-      </div>
+      </nav>
     </div>
   );
 }

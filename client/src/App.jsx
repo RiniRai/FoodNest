@@ -12,6 +12,9 @@ import Checkout from "./pages/Checkout";
 import Orders from "./pages/Orders";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import Menu from "./pages/Menu";
+import Offers from "./components/Offers";
+import AIFoodAssistant from "./components/AIFoodAssistant";
 
 function App() {
   return (
@@ -30,17 +33,23 @@ function App() {
           path="/reset-password/:token"
           element={<ResetPassword />}
         />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/offers" element={<Offers />} />
       </Routes>
 
       <ToastContainer
         position="top-right"
-        autoClose={2500}
+        autoClose={4000}
         hideProgressBar={false}
         newestOnTop
         closeOnClick
+        pauseOnFocusLoss
+        draggable
         pauseOnHover
-        theme="colored"
+        theme="light"
       />
+
+      <AIFoodAssistant />
     </>
   );
 }

@@ -137,3 +137,38 @@ export const deleteMenuItem = async (req, res) => {
 
     }
 };
+
+// Get Today's Active Offers
+export const getActiveOffers = async (req, res) => {
+    try {
+        const now = new Date();
+
+        const menuItems = await Menu.find({
+            isAvailable: true,
+            isDiscounted: true,
+            offerStartDate: { $lte: now },
+            offerEndDate: { $gte: now },
+            $expr: {
+                $and: [
+                    { $gt: ["$discountPrice", 0] },
+                    { $lt: ["$discountPrice", "$price"] }
+                ]
+            }
+        }).populate("restaurantId", "name");
+
+        res.status(200).json({
+            success: true,
+            count: menuItems.length,
+            menuItems
+        });
+
+    } catch (error) {
+        console.error("Get Active Offers Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch active offers"
+        });
+    }
+};
+

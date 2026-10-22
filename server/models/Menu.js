@@ -33,11 +33,29 @@ const menuSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+isAvailable: {
+    type: Boolean,
+    default: true
+},
 
-        isAvailable: {
-            type: Boolean,
-            default: true
-        }
+// Discount settings
+isDiscounted: {
+    type: Boolean,
+    default: false
+},
+
+discountPrice: {
+    type: Number,
+    min: 0
+},
+
+offerStartDate: {
+    type: Date
+},
+
+offerEndDate: {
+    type: Date
+}
     },
     {
         timestamps: true
